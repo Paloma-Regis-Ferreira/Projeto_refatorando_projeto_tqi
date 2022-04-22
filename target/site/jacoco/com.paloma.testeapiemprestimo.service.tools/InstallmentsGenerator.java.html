@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InstallmentsGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">teste-api-emprestimo</a> &gt; <a href="index.source.html" class="el_package">com.paloma.testeapiemprestimo.service.tools</a> &gt; <span class="el_source">InstallmentsGenerator.java</span></div><h1>InstallmentsGenerator.java</h1><pre class="source lang-java linenums">package com.paloma.testeapiemprestimo.service.tools;
+
+import com.paloma.testeapiemprestimo.model.InstallmentDTO;
+import com.paloma.testeapiemprestimo.model.Loan;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class InstallmentsGenerator {
+
+    private Loan loan;
+
+<span class="nc" id="L14">    public InstallmentsGenerator (Loan loan){</span>
+<span class="nc" id="L15">        this.loan = loan;</span>
+<span class="nc" id="L16">    }</span>
+
+    public Loan getLoan() {
+<span class="nc" id="L19">        return this.loan;</span>
+    }
+
+    public Loan generator(){
+<span class="nc" id="L23">        Double resultPrice = this.loan.getValue() / this.loan.getQtdInstallments(); //preco de cada parcela</span>
+<span class="nc" id="L24">        List&lt;InstallmentDTO&gt; installmentDTOS = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L25">        Date date = this.loan.getFirstInstallment();</span>
+
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (int i = 0; i &lt; this.loan.getQtdInstallments(); i++) {</span>
+<span class="nc" id="L28">            installmentDTOS.add(new InstallmentDTO(i + 1, resultPrice, new AddMonth().executeAddMonth(date, i)));//adicionando mes a mes na lista de parcelas e valor</span>
+        }
+
+<span class="nc" id="L31">        this.loan.setInstallmentDTOS(installmentDTOS);//completando o emprestimo enviado pelo cliente com a lista de parcelas</span>
+
+<span class="nc" id="L33">        return this.loan;//retornando emprestimo pronto</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

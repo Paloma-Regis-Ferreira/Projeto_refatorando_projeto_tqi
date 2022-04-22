@@ -1,0 +1,12 @@
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/tools/InstallmentsGenerator.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/resource/LoanResource.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/validator/ValidationMaximumMonths.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/tools/AddMonth.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/TesteApiEmprestimoApplication.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/LoanService.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/validator/Validation.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/model/InstallmentDTO.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/model/Loan.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/repository/LoanRepository.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/validator/ValidationFirstInstallment.java
+/home/usertqi/ws-estudo/ws-java/teste-api-emprestimo/src/main/java/com/paloma/testeapiemprestimo/service/validator/ValidationInstallments.java
