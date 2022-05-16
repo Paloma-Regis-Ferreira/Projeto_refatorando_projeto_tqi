@@ -1,6 +1,6 @@
 package com.paloma.testeapiemprestimo.service.validator;
 
-import com.paloma.testeapiemprestimo.model.Loan;
+import com.paloma.testeapiemprestimo.model.dto.LoanFormDTO;
 import com.paloma.testeapiemprestimo.service.LoanService;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class ValidationMaximumMonthsTest {
 
     @Test
     public void naoDeveriaPermitirQuantidadeDeParcelasMaiorQue60(){
-        Loan loan = new Loan(600.00, new Date(), 70);
+        LoanFormDTO loan = new LoanFormDTO(600.00, new Date(), 70);
         assertThrows(IllegalArgumentException.class, () -> new LoanService().create(loan));
     }
 

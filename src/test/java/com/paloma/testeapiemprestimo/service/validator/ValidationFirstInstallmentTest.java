@@ -1,6 +1,6 @@
 package com.paloma.testeapiemprestimo.service.validator;
 
-import com.paloma.testeapiemprestimo.model.Loan;
+import com.paloma.testeapiemprestimo.model.dto.LoanFormDTO;
 import com.paloma.testeapiemprestimo.service.LoanService;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class ValidationFirstInstallmentTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Loan loan = new Loan(600.00, date, 2);
+        LoanFormDTO loan = new LoanFormDTO(600.00, date, 2);
         assertThrows(IllegalArgumentException.class, () -> new LoanService().create(loan));
     }
 

@@ -1,6 +1,7 @@
 package com.paloma.testeapiemprestimo.model;
 
 
+import com.paloma.testeapiemprestimo.model.vo.InstallmentVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -23,11 +24,6 @@ public class Loan{
     private Date firstInstallment;
     private Integer qtdInstallments;
 
-    private List<InstallmentDTO> installmentDTOS = new ArrayList<>();
+    private List<InstallmentVO> installmentsVO = new ArrayList<>();
 
-    public Loan(Double value, Date firstInstallment, Integer qtdInstallments) {
-        this.value = value;
-        this.firstInstallment = firstInstallment;
-        this.qtdInstallments = qtdInstallments;
-    }
 }

@@ -1,14 +1,18 @@
 package com.paloma.testeapiemprestimo.service;
 
 import com.paloma.testeapiemprestimo.model.Loan;
+import com.paloma.testeapiemprestimo.model.dto.LoanDTO;
+import com.paloma.testeapiemprestimo.model.dto.LoanFormDTO;
 import com.paloma.testeapiemprestimo.repository.LoanRepository;
 import com.paloma.testeapiemprestimo.service.tools.InstallmentsGenerator;
 import com.paloma.testeapiemprestimo.service.validator.ValidationFirstInstallment;
 import com.paloma.testeapiemprestimo.service.validator.ValidationInstallments;
 import com.paloma.testeapiemprestimo.service.validator.ValidationMaximumMonths;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,38 +27,48 @@ public class LoanService {
         return loan.orElseThrow(() -> new IllegalArgumentException("Objeto não encontrado"));//fazer tratamento da exceção
     }
 
-    public List<Loan> findAll() {
+    public List<LoanDTO> findAll() {
         List<Loan> loans = repository.findAll();
-        return loans;
+        List<LoanDTO> loanDTOs = new ArrayList<>();
+        for (Loan loan: loans) {
+            loanDTOs.add(new LoanDTO(loan));
+        }
+        return loanDTOs;
     }
 
-    public Loan create(Loan newLoan) {
+    public Loan create(LoanFormDTO newLoan) {
+        Loan loan = newLoan.toLoan();
 
-        new ValidationMaximumMonths().validar(newLoan);
-        new ValidationFirstInstallment().validar(newLoan);
-        new ValidationInstallments().validar(newLoan);
+        new ValidationMaximumMonths().validar(loan);
+        new ValidationFirstInstallment().validar(loan);
+        new ValidationInstallments().validar(loan);
 
-        InstallmentsGenerator gerarParcelas = new InstallmentsGenerator(newLoan);
-        newLoan = gerarParcelas.generator();
+        InstallmentsGenerator gerarParcelas = new InstallmentsGenerator(loan);
+        loan = gerarParcelas.generator();
 
-        return repository.insert(newLoan);
+        return repository.insert(loan);
     }
 
-    public void update(Loan updateLoan, String id) {
-        Loan loan = this.findById(id);
+    @NotNull
+    public Loan update(@NotNull LoanFormDTO updateLoanDTO, String id) {
+        Loan loan = updateLoanDTO.toLoan();
+        loan.setId(id);
+
+        Loan updateLoan = findById(loan.getId());
 
         new ValidationMaximumMonths().validar(updateLoan);
         new ValidationFirstInstallment().validar(updateLoan);
         new ValidationInstallments().validar(updateLoan);
 
-        loan.setValue(updateLoan.getValue());
-        loan.setFirstInstallment(updateLoan.getFirstInstallment());
-        loan.setQtdInstallments(updateLoan.getQtdInstallments());
+        updateLoan.setValue(loan.getValue());
+        updateLoan.setFirstInstallment(loan.getFirstInstallment());
+        updateLoan.setQtdInstallments(loan.getQtdInstallments());
 
-        InstallmentsGenerator gerarParcelas = new InstallmentsGenerator(updateLoan);
-        loan = gerarParcelas.generator();
+        InstallmentsGenerator gerarParcelas = new InstallmentsGenerator(loan);
+        updateLoan = gerarParcelas.generator();
 
-        repository.save(loan);
+        repository.save(updateLoan);
+        return updateLoan;
     }
 
     public void delete(String id) {

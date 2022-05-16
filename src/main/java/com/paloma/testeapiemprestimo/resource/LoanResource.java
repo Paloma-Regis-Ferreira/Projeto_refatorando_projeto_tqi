@@ -1,6 +1,8 @@
 package com.paloma.testeapiemprestimo.resource;
 
 import com.paloma.testeapiemprestimo.model.Loan;
+import com.paloma.testeapiemprestimo.model.dto.LoanDTO;
+import com.paloma.testeapiemprestimo.model.dto.LoanFormDTO;
 import com.paloma.testeapiemprestimo.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,22 +26,22 @@ public class LoanResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Loan>> findAll(){
-        List<Loan> loans = service.findAll();
+    public ResponseEntity<List<LoanDTO>> findAll(){
+        List<LoanDTO> loans = service.findAll();
         return ResponseEntity.ok().body(loans);
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody Loan newLoan){
+    public ResponseEntity<Loan> create(@RequestBody LoanFormDTO newLoan){
         Loan loan = service.create(newLoan);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(loan.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(loan);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update (@RequestBody Loan updateLoan, @PathVariable String id){
-        service.update(updateLoan, id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Loan> update (@PathVariable String id, @RequestBody LoanFormDTO updateLoan){
+        Loan loan = service.update(updateLoan, id);
+        return ResponseEntity.ok(loan);
     }
 
     @DeleteMapping(value = "/{id}")
